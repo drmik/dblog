@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Khalil Muhammad">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="64x64">
+  <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
+
+  
+
+  <link rel="stylesheet" href="/static/style.css"/>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Vollkorn&display=swap" rel="stylesheet">
+  <style>
+    * {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1 {
+      border-bottom: 1px dotted gainsboro;
+      margin-bottom: 32px;
+    }
+
+    html, body {
+      background: #f1f3f5;
+      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, segoe ui, roboto, oxygen, ubuntu, cantarell, fira sans, droid sans, helvetica neue, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #345;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Vollkorn", -apple-system, BlinkMacSystemFont, segoe ui, roboto, oxygen, ubuntu, cantarell, fira sans, droid sans, helvetica neue, sans-serif;
+    }
+
+    #content {
+      border-radius: 2px;
+      box-shadow: 0 6px 8px rgba(102, 119, 136, .03), 0 1px 2px rgba(102, 119, 136, .3), 0 8px 12px rgba(58, 193, 203, .1);
+      background: #fff;
+      padding: 36px 32px;
+      margin-top: 24px;
+      border-top: 3px solid #8cc474;
+      margin-bottom: 20px;
+    }
+
+    .navbar {
+      box-shadow: 0 6px 8px rgba(102, 119, 136, .03), 0 1px 2px rgba(102, 119, 136, .3), 0 8px 12px rgba(58, 193, 203, .1);
+      margin-bottom: 16px;
+    }
+
+  </style>
+
+  <title>VSCode Shell Commands not retaining install status in $PATH after restart - My New CLOG Site</title>
+  
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<!-- mathjax for formulas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML" async></script> 
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ced4da29;">
+  <a class="navbar-brand" href="/">My New CLOG Site</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/archive">Archive</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/showcase">Showcase</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+      
+    </ul>
+    
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-12">
+      <div id="content">
+        <h1>VSCode Shell Commands not retaining install status in $PATH after restart</h1>
+        
+
+<div id="article">
+  <p>After you download VSCode and <a href="https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line">add it to your PATH</a>, you may stumble upon a problem where you cannot launch VSCode from the command line or Terminal --- it's as if something modifies your system PATH and takes out the VSCode entry.</p>
+<p>This problem is notoriously annoying. But fret not, there's a <a href="https://github.com/Microsoft/vscode/issues/42051#issuecomment-441899647">simple solution</a> (for MacOS) users. <a href="https://github.com/matangover">Matan Gover</a> responded to an <a href="https://github.com/Microsoft/vscode/issues/42051">GitHub issue</a> related to the problem as follows:</p>
+<blockquote>
+<p>I was having the same problem, but unlike @benday, I was running VS Code from /Applications (not from ~/Downloads). Turns out I still had the <code>quarantine</code> attribute set on VS Code -- probably because I had moved it from ~/Downloads to /Applications using mv instead of Finder. Only moving it <a href="http://www.openradar.me/radar?id=5022734169931776">using Finder</a> removes the quarantine attribute.</p>
+<p>To fix the issue, I followed the instructions in <a href="https://github.com/Microsoft/vscode/issues/48124#issuecomment-383614238">#48124 (comment)</a> and ran:</p>
+<div class="highlight"><pre><span></span><code>xattr -dr com.apple.quarantine /Applications/Visual<span class="se">\ </span>Studio<span class="se">\ </span>Code.app
+</code></pre></div>
+
+<p>IMO since this seems to cause confusion, VS Code should show a warning if "Shell Command: Install 'code' command in PATH" is invoked when running from a read-only file system, as in <a href="https://github.com/Squirrel/Squirrel.Mac/pull/186">Squirrel/Squirrel.Mac#186</a>. Even better would be to offer the user to fix it for them.</p>
+</blockquote>
+<p>I have tested the proposed solution and it works! If you're also having a similar problem with <a href="https://macdown.uranusjr.com/">MacDown's</a> <code>macdown</code> command or <a href="https://www.jetbrains.com/pycharm/">PyCharm's</a> <code>charm</code> command, you now know what to do.</p>
+</div>
+
+
+<div style="padding-top: 15px; border-top: 1px dotted gainsboro; margin-top: 32px; text-align: center">
+  <small class="text-muted">Published on Thursday, 28 February 2019</small>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+          integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+          crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+          crossorigin="anonymous"></script>
+</div>
+</body>
+ <script>hljs.initHighlightingOnLoad();</script> 
+</html>
